@@ -93,7 +93,7 @@ class LTLGraphCreation():
             print("The updated path is : ", path)
         
         else:
-            self.trv_ftime = False
+            # self.trv_ftime = False
             edges = self.graph[u]["outgoing"]
             # print("edges --> ", edges)
             for e in edges:
