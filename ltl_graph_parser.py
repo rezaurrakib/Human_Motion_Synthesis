@@ -7,6 +7,7 @@ _version_ = "0.1"
 _maintainer_ = "Reza, Matthias"
 _status_ = "Dev"
 
+
 class LTLGraphCreation():
     def __init__(self, file_data):
         buf = io.StringIO(file_data)
@@ -18,7 +19,7 @@ class LTLGraphCreation():
           
     def parsing_buffer(self, buf):
         self.lines = buf.readlines()
-        for line in lines:
+        for line in self.lines:
             if (("->" in line) and ("[label=<" in line)): # Contain edge info between nodes
                 pattern = "<(.*?)>"
                 edges = re.search(pattern, line).group(1)
