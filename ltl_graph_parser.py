@@ -1,5 +1,6 @@
 import re
 import io
+import random
 
 _authors_ = "Md Rezaur Rahman"
 _copyright_ = "Copyright 2020, The Human Motion Synthesis Project"
@@ -71,7 +72,8 @@ class LTLGraphCreation():
             if u == i:
                 return True
         return False
-        
+
+    '''
     def print_all_paths(self, src):
         sz = len(self.graph.keys())
         visited = [False for _ in range(sz)]
@@ -104,4 +106,23 @@ class LTLGraphCreation():
         # Remove current node from path[] and mark it as unvisited 
         path.pop() 
         visited[u]= False
-        
+    '''
+
+    def recurse_traversal(self, u, path, p_len=20):
+        if len(path) > p_len:
+            print(path)
+            return
+
+        edges = self.graph[u]["outgoing"]
+
+        while (True):
+            next_node = random.choice(edges)
+            # print("Current randomly chosen node: ", next_node)
+            if self.is_dead(next_node) or u == next_node:
+                continue
+            else:
+                break
+
+        path.append(next_node)
+        self.recurse_traversal(next_node, path)
+
