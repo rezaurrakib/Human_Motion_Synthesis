@@ -1,5 +1,5 @@
 ## Graph Parser for LTL formulation
-LTL Graph parser takes a **.dot** file as an input, parse it and creates a Graph with node-edge information.
+LTL Graph parser takes a **.dot** file as an input generated from the SPOT library, parses it and creates a Graph with node-edge information.
 
 ### API Reference
 class **LTLGraphCreation** contain following APIs.
@@ -22,4 +22,4 @@ class **LTLGraphCreation** contain following APIs.
     - It prints the path of length p_len (default: 20) and the corresponding actions taken along the edges from a starting vertex. While traversing the graph, it avoids the dead vertex and randomly choose the next valid vertex with an action.  
 
   - **self.graph**
-    - This class variable holds all the node and edge information of the ltl graph.
+    - This class variable holds all the node and edge information of the LTL graph generated from the SPOT library.
