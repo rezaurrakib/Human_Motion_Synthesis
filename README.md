@@ -15,10 +15,10 @@ class **LTLGraphCreation** contain following APIs.
   - **check_dead_nodes()**
     - Print all the dead nodes (if present any) in the formulated graph. 
   
-  - **is_dead()**
+  - **is_dead(node)**
     - Check whether a vertex/node is in a dead state, i.e., no other vertex/state can be reachable from this vertex/node.
  
-  - **recurse_traversal()**
+  - **recurse_traversal(cur_node, path, actions, p_len=20)**
     - It prints the path of length p_len (default: 20) and the corresponding actions taken along the edges from a starting vertex. While traversing the graph, it avoids the dead vertex and randomly choose the next valid vertex with an action.  
 
   - **self.graph**
