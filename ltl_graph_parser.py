@@ -22,24 +22,25 @@ class LTLGraphCreation():
     def parsing_buffer(self, buf):
         self.lines = buf.readlines()
         for line in self.lines:
-            if (("->" in line) and ("[label=<" in line)):  # Contain edge info between nodes
+            if ("->" in line) and ("[label=" in line):  # Contain edge info between nodes
                 # print("Line: ", line)
-                pattern = "<(.*?)>"
+                pattern = "\[label=(.*?)\]"
                 edges = re.search(pattern, line).group(1)
                 edges = edges.replace("&amp;", "&")
+                edges = edges[1:-1]  # Remove "" or <> from the string
                 nodes = list(map(int, re.findall(r'\d+', line)))
                 print("Nodes: ", nodes)
                 print("Edge: ", edges)
                 self.store_graph_info(nodes, edges)
 
-            elif ("peripheries" in line):
+            elif "peripheries" in line:
                 self.graph_center = int(re.search(r'\d+', line).group())  # Only take the first node info
 
         self.total_vertex = len(self.graph.keys())
 
     def store_graph_info(self, nodes, edge):
         # Source node is empty only
-        if self.graph.get(nodes[0]) == None:
+        if self.graph.get(nodes[0]) is None:
             temp = {}
             temp["incoming"] = []
             temp["outgoing"] = []
@@ -47,7 +48,7 @@ class LTLGraphCreation():
             self.graph[nodes[0]] = temp
 
         # Destination node is empty but source node already exists
-        if self.graph.get(nodes[1]) == None:
+        if self.graph.get(nodes[1]) is None:
             temp = {}
             temp["incoming"] = []
             temp["outgoing"] = []
@@ -80,10 +81,10 @@ class LTLGraphCreation():
     def check_dead_nodes(self):
         for k in self.graph.keys():
             sz = len(self.graph[k]["outgoing"])
-            if ((sz == 1) and (self.graph[k]["outgoing"][0] == k)):
+            if (sz == 1) and (self.graph[k]["outgoing"][0] == k):
                 self.dead_nodes.append(k)
 
-        if (len(self.dead_nodes) > 0):
+        if len(self.dead_nodes) > 0:
             print("Dead nodes exist in the Graph.\nDead nodes are: ")
             for i in self.dead_nodes:
                 print(i)
