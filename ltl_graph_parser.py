@@ -18,6 +18,8 @@ class LTLGraphCreation():
         self.trv_ftime = None
         self.dead_nodes = []
         self.total_vertex = 0
+        self.traversal_seq = [] # contains traversal sequence
+        self.action_seq = [] # contains action sequence
 
     def parsing_buffer(self, buf):
         self.lines = buf.readlines()
@@ -29,8 +31,8 @@ class LTLGraphCreation():
                 edges = edges.replace("&amp;", "&")
                 edges = edges[1:-1]  # Remove "" or <> from the string
                 nodes = list(map(int, re.findall(r'\d+', line)))
-                print("Nodes: ", nodes)
-                print("Edge: ", edges)
+                # print("Nodes: ", nodes)
+                # print("Edge: ", edges)
                 self.store_graph_info(nodes, edges)
 
             elif "peripheries" in line:
@@ -99,6 +101,8 @@ class LTLGraphCreation():
         if len(path) > p_len:
             print("Traversal : ", path)
             print("Actions taken: ", actions)
+            self.traversal_seq = path
+            self.action_seq = actions
             return
 
         edges = self.graph[cur_node]["outgoing"]
